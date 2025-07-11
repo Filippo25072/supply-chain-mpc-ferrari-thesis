@@ -36,7 +36,7 @@ t = (1:Tsim)';
 end
 
 % INIZIALIZZA VARIABILI DI STATO
-outputs = zeros(Tsim,N); %crea matrice di zeri 35x4
+outputs = zeros(Tsim,N); 
 backlog = zeros(Tsim,N);
 backlog_init = zeros(1,N);
 
@@ -96,13 +96,13 @@ for t_idx = 1:Tsim
 
         % Dinamica stock
         stock(t_idx,echelon) = stock_prev + outputs(t_idx,echelon) - domanda; % STOCK
-        stock(t_idx,echelon) = max(stock(t_idx,echelon),0); %PROF
-        stock_bl =  min(stock(t_idx,echelon), prev_backlog(echelon)); %PROF
+        stock(t_idx,echelon) = max(stock(t_idx,echelon),0);
+        stock_bl =  min(stock(t_idx,echelon), prev_backlog(echelon)); 
         stock(t_idx,echelon) = stock(t_idx,echelon) - stock_bl; 
 
 
         % Dinamica backlog
-        backlog(t_idx,echelon) = prev_backlog(echelon) + domanda - outputs(t_idx,echelon) - stock_bl; %BACKLOG PROF
+        backlog(t_idx,echelon) = prev_backlog(echelon) + domanda - outputs(t_idx,echelon) - stock_bl; 
         backlog(t_idx,echelon) = max(backlog(t_idx,echelon), 0); % per non avere backlog negativo
     end
 
