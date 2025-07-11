@@ -53,7 +53,7 @@ for echelon = N:-1:1
   y_noisy = y + randn(size(y)) * 10;  % aggiunta di rumore bianco
 outputs(:,echelon) = min(max(y_noisy, 0), 2*mu);
    % input_cur = outputs(:,echelon);  % diventa input per livello a monte
-input_cur = [outputs(1,echelon); outputs(1:end-1,echelon)];% Introduzione di un ritardo simulato di 1 time-step, se t > 1
+input_cur = [outputs(1,echelon); outputs(1:end-1,echelon)]; % Introduzione di un ritardo simulato di 1 time-step, se t > 1
 end
 
 % DINAMICA STOCK E BACKLOG
@@ -65,10 +65,10 @@ for t_idx = 2:Tsim
             domanda = outputs(t_idx, echelon + 1);
         end
         stock(t_idx,echelon) = stock(t_idx-1,echelon) + outputs(t_idx,echelon) - domanda;
-        stock(t_idx,echelon) = max(stock(t_idx,echelon),0); %PROF
-        stock_bl =  min(stock(t_idx,echelon), backlog(t_idx-1,echelon)); %PROF
-        stock(t_idx,echelon) = stock(t_idx,echelon) - stock_bl; %PROF
-        backlog(t_idx,echelon) = backlog(t_idx-1,echelon) + domanda - outputs(t_idx,echelon) - stock_bl; %PROF
+        stock(t_idx,echelon) = max(stock(t_idx,echelon),0); 
+        stock_bl =  min(stock(t_idx,echelon), backlog(t_idx-1,echelon));
+        stock(t_idx,echelon) = stock(t_idx,echelon) - stock_bl; 
+        backlog(t_idx,echelon) = backlog(t_idx-1,echelon) + domanda - outputs(t_idx,echelon) - stock_bl; 
     end
 end
 
